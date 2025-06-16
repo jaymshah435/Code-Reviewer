@@ -7,6 +7,13 @@ function App() {
   const [review, setReview] = useState("");       // AI-generated review
   const [loading, setLoading] = useState(false);  // Loading state
 
+
+  //Handles input code click
+  const inputChange = (e)=> {
+    setCode(e.target.value)
+    setReview("")
+  }
+
   // Handles review button click
   const handleReview = async () => {
     if (!code.trim()) {
@@ -28,6 +35,8 @@ function App() {
     }
   };
 
+
+
   return (
     <div className='h-screen p-6 bg-black flex flex-col'>
       {/* Header */}
@@ -44,12 +53,12 @@ function App() {
             className='flex-1 w-full text-gray-400 p-4 pb-20 border border-gray-600 rounded resize-none focus:outline-none bg-gray-900'
             placeholder="Paste your code here..."
             value={code}
-            onChange={e => setCode(e.target.value)}
+            onChange={inputChange}
           />
           <button
-            className="absolute bottom-4 right-4 bg-blue-600 text-white px-6 py-2 rounded cursor-pointer"
+            className="absolute bottom-4 right-4 bg-blue-600 text-white px-6 py-2 rounded cursor-pointer disabled:cursor-default disabled:opacity-50"
             onClick={handleReview}
-            disabled={loading}
+            disabled={loading || review}
           >
             {loading ? 'Reviewing...' : 'Review Code'}
           </button>
